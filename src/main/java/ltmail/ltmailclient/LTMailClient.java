@@ -20,11 +20,19 @@ public class LTMailClient {
     
     public static void main(String[] args) {
         
-        if (Application.getInstance() == null) {
-            return;
+        boolean initSuccessfully = true;
+        
+        try {
+            Application.init();
+        } catch (IOException e) {
+            initSuccessfully = false;
+            System.out.println("Unable to connect to the server. "
+                    + "Shutting down...");
         }
         
-        Application.getInstance().run();
+        if (initSuccessfully) {
+            Application.getInstance().run();
+        }
         
     }
     

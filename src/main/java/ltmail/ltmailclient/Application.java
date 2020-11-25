@@ -18,16 +18,11 @@ public class Application {
     public static final String SERVER_ADDRESS = "127.0.0.1";
     public static final int SERVER_PORT = 5000;
     
-    public static Application getInstance() {
-        if (instance == null) {
-            try {
-                instance = new Application();
-                System.out.println("Connected to server");
-            } catch(IOException ie) {
-                System.out.println("Unable to connect to server. Shutting down...");
-            }
-        }
-        
+    public static void init() throws IOException {
+        instance = new Application();
+    }
+    
+    public static Application getInstance() throws NullPointerException {
         return instance;
     }
     
