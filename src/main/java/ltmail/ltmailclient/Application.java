@@ -5,8 +5,10 @@
  */
 package ltmail.ltmailclient;
 
+import java.awt.BorderLayout;
 import java.io.IOException;
 import java.net.Socket;
+import javax.swing.JFrame;
 import ltmail.ltmailclient.forms.LoginForm;
 
 /**
@@ -27,18 +29,26 @@ public class Application {
     }
     
     public void run() {
+        mainWindow.add(loginForm);
         loginForm.setEnabled(true);
     }
 
     private Application() throws IOException {
+        
         socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+        
+        mainWindow = new JFrame();
+        mainWindow.setLayout(new BorderLayout());
+        mainWindow.setEnabled(true);
+        mainWindow.setVisible(true);
         
         loginForm = new LoginForm();
     }
     
     private static Application instance;
     private final Socket socket;
+    private final JFrame mainWindow;
     
-    private LoginForm loginForm;
+    private final LoginForm loginForm;
     
 }

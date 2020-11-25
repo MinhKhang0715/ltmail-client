@@ -18,7 +18,7 @@ import ltmail.ltmailclient.forms.LoginForm;
  */
 public class LTMailClient {
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
         boolean initSuccessfully = true;
         
