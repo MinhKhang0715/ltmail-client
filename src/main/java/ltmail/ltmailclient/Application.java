@@ -1,18 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ltmail.ltmailclient;
 
-import java.io.IOException;
+import java.util.logging.Logger;
 import java.net.Socket;
-import ltmail.ltmailclient.forms.LoginForm;
+import java.io.IOException;
 
-/**
- *
- * @author qquan
- */
 public class Application {
     
     public static final String SERVER_ADDRESS = "127.0.0.1";
@@ -22,9 +14,10 @@ public class Application {
         if (instance == null) {
             try {
                 instance = new Application();
-                System.out.println("Connected to server");
+                Logger.getGlobal().info("Connected to server");
             } catch(IOException ie) {
-                System.out.println("Unable to connect to server. Shutting down...");
+                Logger.getGlobal().severe("Cannot connect to server. Shutting down...");
+                System.exit(-1);
             }
         }
         
@@ -32,18 +25,13 @@ public class Application {
     }
     
     public void run() {
-        loginForm.setEnabled(true);
+        Logger.getGlobal().info("Application began running");
     }
 
     private Application() throws IOException {
         socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
-        
-        loginForm = new LoginForm();
     }
     
     private static Application instance;
     private final Socket socket;
-    
-    private LoginForm loginForm;
-    
 }
