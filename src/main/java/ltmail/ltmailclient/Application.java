@@ -2,8 +2,9 @@
 package ltmail.ltmailclient;
 
 import java.util.logging.Logger;
-import java.net.Socket;
 import java.io.IOException;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
 
 public class Application {
     
@@ -29,9 +30,11 @@ public class Application {
     }
 
     private Application() throws IOException {
-        socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+        socket = (SSLSocket) SSLSocketFactory
+                .getDefault()
+                .createSocket(SERVER_ADDRESS, SERVER_PORT);
     }
     
     private static Application instance;
-    private final Socket socket;
+    private final SSLSocket socket;
 }
