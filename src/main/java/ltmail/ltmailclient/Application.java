@@ -3,6 +3,7 @@ package ltmail.ltmailclient;
 
 import java.util.logging.Logger;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Scanner;
@@ -34,6 +35,15 @@ public class Application {
     }
     
     public JSONObject sendRequest(JSONObject req) {
+        try {
+            output.write(req.toString());
+            output.append("\n");
+            output.flush();
+        } catch(IOException e) {
+            return new JSONObject()
+                    .put("success", false)
+                    .put("errorCode", "UNEXPECTEDLY_DISCONNECTED");
+        }
         
         LocalDateTime start = LocalDateTime.now();
         
@@ -58,9 +68,11 @@ public class Application {
                 .getDefault()
                 .createSocket(SERVER_ADDRESS, SERVER_PORT);
         input = new Scanner(socket.getInputStream());
+        output = new OutputStreamWriter(socket.getOutputStream());
     }
     
     private static Application instance;
     private final SSLSocket socket;
     private final Scanner input;
+    private final OutputStreamWriter output;
 }
