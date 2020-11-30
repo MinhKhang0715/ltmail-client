@@ -5,11 +5,20 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import ltmail.ltmailclient.Application;
+import org.json.JSONObject;
 
 public class FormController {
     
-    public FormController() {
+    public FormController(Application app) {
         forms = new HashMap<>();
+        this.app = app;
+        
+        if (this.app != null) {
+            Logger.getGlobal().severe("Failed to construct FormController:"
+                    + "`app` field is required");
+            System.exit(0);
+        }
     }
     
     public FormController addForm(String name, JFrame frame) {
@@ -46,6 +55,10 @@ public class FormController {
         }
     }
     
-    private final HashMap<String, JFrame> forms;
+    public JSONObject sendRequest(JSONObject req) {
+        return app.sendRequest(req);
+    }
     
+    private final HashMap<String, JFrame> forms;
+    private final Application app;
 }
