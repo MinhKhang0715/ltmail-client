@@ -18,7 +18,7 @@ public class Application {
                 Logger.getGlobal().info("Connected to server");
             } catch(IOException ie) {
                 Logger.getGlobal().severe("Cannot connect to server. Shutting down...");
-                System.exit(-1);
+                System.exit(0);
             }
         }
         
