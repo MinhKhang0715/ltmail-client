@@ -1,4 +1,4 @@
-
+    
 package ltmail.ltmailclient.forms;
 
 import java.util.HashMap;
@@ -17,7 +17,7 @@ public class FormController {
         if (forms.containsKey(name)) {
             
             Logger.getGlobal().log(Level.WARNING,
-                    "Form `{0}` already exists. Skipping the operation...", name);
+                    "Adding form `{0}` failed. The form already exists", name);
             return this;
             
         } else {
@@ -32,14 +32,17 @@ public class FormController {
     
     public JFrame changeForm(String name) {
         if (!forms.containsKey(name)) {
+            
             Logger.getGlobal().log(Level.WARNING,
                     "Form `{0}` doesn''t exists", name);
-            
             return null;
+            
         } else {
+            
             Logger.getGlobal().log(Level.INFO,
                     "Changing to form `{0}`...", name);
             return forms.get(name);
+            
         }
     }
     
